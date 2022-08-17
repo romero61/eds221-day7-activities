@@ -15,6 +15,69 @@ span.underline{text-decoration: underline;}
 div.column{display: inline-block; vertical-align: top; width: 50%;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -54,63 +117,411 @@ ul.task-list{list-style: none;}
 
 </header>
 
-<div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
-✔ ggplot2 3.3.6     ✔ purrr   0.3.4
-✔ tibble  3.1.8     ✔ dplyr   1.0.9
-✔ tidyr   1.2.0     ✔ stringr 1.4.0
-✔ readr   2.1.2     ✔ forcats 0.5.1
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()</code></pre>
-</div>
-</div>
 <ul>
 <li><p>Read in the data sets and store the data frames as <code>bird_observations</code>, <code>sites</code>, <code>surveys</code>, and <code>taxalist</code> (it should be clear from the raw file names which is which)</p></li>
-<li><div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 40425 Columns: 9
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (5): site_id, species_id, distance, notes, direction
-dbl (4): survey_id, bird_count, seen, heard
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 221 Columns: 7
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (5): site_id, park_code, park_district, park_name, point_code
-lgl (2): point_location, park_acreage
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 2004 Columns: 12
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr  (4): site_id, observer, wind_dir, notes
-dbl  (4): survey_id, wind_speed, air_temp, cloud_cover
-lgl  (1): temp_units
-dttm (3): survey_date, time_start, time_end
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 259 Columns: 3
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (2): species_id, common_name
-dbl (1): asu_itis
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<li></li>
+<li><p>Create a subset of <code>bird_observations</code> called <code>birds_subset</code> that only contains observations for birds with species id “BHCO” and “RWBL”, and from sites with site ID “LI-W” and “NU-C”</p></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>birds_subset <span class="ot">&lt;-</span> bird_observations <span class="sc">|&gt;</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(species_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"BHCO"</span>, <span class="st">"RWBL"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(site_id <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"LI-W"</span>,<span class="st">"NU-C"</span>))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>birds_subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 9
+   survey_id site_id species_id distance bird_count notes  seen heard direction
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    
+ 1       153 NU-C    BHCO       20-40             8 &lt;NA&gt;      1     0 N        
+ 2       412 LI-W    RWBL       &gt;40               1 &lt;NA&gt;      0     1 N        
+ 3       412 LI-W    RWBL       FT                1 &lt;NA&gt;      0     1 SE       
+ 4       412 LI-W    BHCO       FT                4 &lt;NA&gt;      1     0 NE       
+ 5       711 LI-W    RWBL       5-10              1 &lt;NA&gt;      1     0 S        
+ 6       711 LI-W    RWBL       FT                4 &lt;NA&gt;      1     0 S        
+ 7       711 LI-W    RWBL       &gt;40              10 &lt;NA&gt;      1     1 N        
+ 8       711 LI-W    RWBL       10-20             3 &lt;NA&gt;      1     1 S        
+ 9       770 NU-C    BHCO       &gt;40               1 &lt;NA&gt;      1     0 SE       
+10       770 NU-C    BHCO       FT                2 &lt;NA&gt;      1     0 S        
+# … with 13 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
 </div>
-</div></li>
-</ul>
-<!-- -->
+</div>
+<section id="left-join-practice" class="level1">
+<h1>Left join practice</h1>
+<p>Use left join(s) to update birds_subset so that it also includes sites and taxalist information. For each join, include an explicit argument saying which variable you are joining by (even if it will just assume the correct one for you). Store the updated data frame as birds_left. Make sure to look at the output - is what it contains consistent with what you expected it to contain?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>birds_left <span class="ot">&lt;-</span> birds_subset <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sites, <span class="at">by =</span> <span class="st">"site_id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(taxalist, <span class="at">by =</span> <span class="st">'species_id'</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>birds_left</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 17
+   survey_id site_id species…¹ dista…² bird_…³ notes  seen heard direc…⁴ park_…⁵
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1       153 NU-C    BHCO      20-40         8 &lt;NA&gt;      1     0 N       NU     
+ 2       412 LI-W    RWBL      &gt;40           1 &lt;NA&gt;      0     1 N       LI     
+ 3       412 LI-W    RWBL      FT            1 &lt;NA&gt;      0     1 SE      LI     
+ 4       412 LI-W    BHCO      FT            4 &lt;NA&gt;      1     0 NE      LI     
+ 5       711 LI-W    RWBL      5-10          1 &lt;NA&gt;      1     0 S       LI     
+ 6       711 LI-W    RWBL      FT            4 &lt;NA&gt;      1     0 S       LI     
+ 7       711 LI-W    RWBL      &gt;40          10 &lt;NA&gt;      1     1 N       LI     
+ 8       711 LI-W    RWBL      10-20         3 &lt;NA&gt;      1     1 S       LI     
+ 9       770 NU-C    BHCO      &gt;40           1 &lt;NA&gt;      1     0 SE      NU     
+10       770 NU-C    BHCO      FT            2 &lt;NA&gt;      1     0 S       NU     
+# … with 13 more rows, 7 more variables: park_district &lt;chr&gt;, park_name &lt;chr&gt;,
+#   point_code &lt;chr&gt;, point_location &lt;lgl&gt;, park_acreage &lt;lgl&gt;,
+#   common_name &lt;chr&gt;, asu_itis &lt;dbl&gt;, and abbreviated variable names
+#   ¹​species_id, ²​distance, ³​bird_count, ⁴​direction, ⁵​park_code
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+<p>Full join practice First, answer: what do you expect a full_join() between birds_subset and sites to contain?</p>
+<p>Write code to full_join the birds_subset and sites data into a new object called birds_full. Explicitly include the variable you’re joining by. Look at the output. Is it what you expected?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(birds_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "survey_id"  "site_id"    "species_id" "distance"   "bird_count"
+[6] "notes"      "seen"       "heard"      "direction" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(sites)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "site_id"        "park_code"      "park_district"  "park_name"     
+[5] "point_code"     "point_location" "park_acreage"  </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># "survey_id"  "site_id"    "species_id" "distance"   "bird_count" "notes"     </span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># "seen"       "heard"      "direction" </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#      "park_code"      "park_district"  "park_name"     </span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># "point_code"     "point_location" "park_acreage" "</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>birds_full <span class="ot">&lt;-</span> birds_subset <span class="sc">|&gt;</span> </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">full_join</span>(sites, <span class="at">by =</span> <span class="st">'site_id'</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>birds_full</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 242 × 15
+   survey_id site_id species…¹ dista…² bird_…³ notes  seen heard direc…⁴ park_…⁵
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1       153 NU-C    BHCO      20-40         8 &lt;NA&gt;      1     0 N       NU     
+ 2       412 LI-W    RWBL      &gt;40           1 &lt;NA&gt;      0     1 N       LI     
+ 3       412 LI-W    RWBL      FT            1 &lt;NA&gt;      0     1 SE      LI     
+ 4       412 LI-W    BHCO      FT            4 &lt;NA&gt;      1     0 NE      LI     
+ 5       711 LI-W    RWBL      5-10          1 &lt;NA&gt;      1     0 S       LI     
+ 6       711 LI-W    RWBL      FT            4 &lt;NA&gt;      1     0 S       LI     
+ 7       711 LI-W    RWBL      &gt;40          10 &lt;NA&gt;      1     1 N       LI     
+ 8       711 LI-W    RWBL      10-20         3 &lt;NA&gt;      1     1 S       LI     
+ 9       770 NU-C    BHCO      &gt;40           1 &lt;NA&gt;      1     0 SE      NU     
+10       770 NU-C    BHCO      FT            2 &lt;NA&gt;      1     0 S       NU     
+# … with 232 more rows, 5 more variables: park_district &lt;chr&gt;, park_name &lt;chr&gt;,
+#   point_code &lt;chr&gt;, point_location &lt;lgl&gt;, park_acreage &lt;lgl&gt;, and abbreviated
+#   variable names ¹​species_id, ²​distance, ³​bird_count, ⁴​direction, ⁵​park_code
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+</section>
+<section id="inner-join-practice" class="level1">
+<h1>Inner join practice</h1>
+<p>First, answer: what do you expect an inner_join() between birds_subset and taxalist to contain?</p>
+<p>Write code to inner_join() the birds_subset and taxalist, called birds_inner. Include an argument for what variable you’ll be joining by.</p>
+<p>What would you get if instead of inner_join() you’d used left_join() for this example? Try it out &amp; check. Why does that make sense for this scenario? It what case would you expect the outcome to differ from an inner_join()?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(birds_subset)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "survey_id"  "site_id"    "species_id" "distance"   "bird_count"
+[6] "notes"      "seen"       "heard"      "direction" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(taxalist) <span class="co"># key match </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "species_id"  "common_name" "asu_itis"   </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>birds_inner <span class="ot">&lt;-</span> birds_subset <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(taxalist, <span class="at">by =</span> <span class="st">"species_id"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>birds_left2 <span class="ot">&lt;-</span> birds_subset <span class="sc">|&gt;</span> </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(taxalist, <span class="at">by =</span> <span class="st">"species_id"</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>birds_inner</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 11
+   survey_id site_id species…¹ dista…² bird_…³ notes  seen heard direc…⁴ commo…⁵
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1       153 NU-C    BHCO      20-40         8 &lt;NA&gt;      1     0 N       Brown-…
+ 2       412 LI-W    RWBL      &gt;40           1 &lt;NA&gt;      0     1 N       Red-wi…
+ 3       412 LI-W    RWBL      FT            1 &lt;NA&gt;      0     1 SE      Red-wi…
+ 4       412 LI-W    BHCO      FT            4 &lt;NA&gt;      1     0 NE      Brown-…
+ 5       711 LI-W    RWBL      5-10          1 &lt;NA&gt;      1     0 S       Red-wi…
+ 6       711 LI-W    RWBL      FT            4 &lt;NA&gt;      1     0 S       Red-wi…
+ 7       711 LI-W    RWBL      &gt;40          10 &lt;NA&gt;      1     1 N       Red-wi…
+ 8       711 LI-W    RWBL      10-20         3 &lt;NA&gt;      1     1 S       Red-wi…
+ 9       770 NU-C    BHCO      &gt;40           1 &lt;NA&gt;      1     0 SE      Brown-…
+10       770 NU-C    BHCO      FT            2 &lt;NA&gt;      1     0 S       Brown-…
+# … with 13 more rows, 1 more variable: asu_itis &lt;dbl&gt;, and abbreviated
+#   variable names ¹​species_id, ²​distance, ³​bird_count, ⁴​direction,
+#   ⁵​common_name
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>birds_left2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 11
+   survey_id site_id species…¹ dista…² bird_…³ notes  seen heard direc…⁴ commo…⁵
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1       153 NU-C    BHCO      20-40         8 &lt;NA&gt;      1     0 N       Brown-…
+ 2       412 LI-W    RWBL      &gt;40           1 &lt;NA&gt;      0     1 N       Red-wi…
+ 3       412 LI-W    RWBL      FT            1 &lt;NA&gt;      0     1 SE      Red-wi…
+ 4       412 LI-W    BHCO      FT            4 &lt;NA&gt;      1     0 NE      Brown-…
+ 5       711 LI-W    RWBL      5-10          1 &lt;NA&gt;      1     0 S       Red-wi…
+ 6       711 LI-W    RWBL      FT            4 &lt;NA&gt;      1     0 S       Red-wi…
+ 7       711 LI-W    RWBL      &gt;40          10 &lt;NA&gt;      1     1 N       Red-wi…
+ 8       711 LI-W    RWBL      10-20         3 &lt;NA&gt;      1     1 S       Red-wi…
+ 9       770 NU-C    BHCO      &gt;40           1 &lt;NA&gt;      1     0 SE      Brown-…
+10       770 NU-C    BHCO      FT            2 &lt;NA&gt;      1     0 S       Brown-…
+# … with 13 more rows, 1 more variable: asu_itis &lt;dbl&gt;, and abbreviated
+#   variable names ¹​species_id, ²​distance, ³​bird_count, ⁴​direction,
+#   ⁵​common_name
+# ℹ Use `print(n = ...)` to see more rows, and `colnames()` to see all variable names</code></pre>
+</div>
+</div>
+</section>
+<section id="task-2" class="level1">
+<h1>Task 2:</h1>
+<p>Starting with your birds object, rename the notes column to bird_obs_notes (so this doesn’t conflict with notes in the surveys dataset</p>
+<p>Then, create a subset that contains all observations in the birds dataset, joins the taxonomic, site and survey information to it, and is finally limited to only columns survey_date, common_name, park_name, and bird_count. You can decide the order that you want to create this in (e.g.&nbsp;limit the columns first, then join, or the other way around).</p>
+<p>Use lubridate::month() to add a new column called survey_month, containing only the month number. Then, convert the month number to a factor (again within mutate())</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>birds_subset <span class="ot">&lt;-</span> bird_observations <span class="sc">|&gt;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">birds_obs_notes =</span> notes)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>birds_subset</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,425 × 9
+   survey_id site_id species_id distance bird_count birds_…¹  seen heard direc…²
+       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;chr&gt;         &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;  
+ 1       144 LI-S    HOSP       5-10              4 &lt;NA&gt;         1     1 NE     
+ 2       145 LI-W    HOSP       20-40            10 &lt;NA&gt;         0     1 E      
+ 3       145 LI-W    AUWA       20-40             2 &lt;NA&gt;         0     1 SE     
+ 4       145 LI-W    RODO       FT                2 &lt;NA&gt;         1     0 E      
+ 5       145 LI-W    GTGR       &gt;40               2 &lt;NA&gt;         0     1 NE     
+ 6       145 LI-W    WCSP       20-40             3 &lt;NA&gt;         0     1 N      
+ 7       145 LI-W    WCSP       20-40             3 &lt;NA&gt;         0     1 E      
+ 8       145 LI-W    GTGR       FT                2 &lt;NA&gt;         1     1 E      
+ 9       145 LI-W    RODO       FT                2 &lt;NA&gt;         1     0 S      
+10       145 LI-W    MODO       FT                3 &lt;NA&gt;         1     0 E      
+# … with 40,415 more rows, and abbreviated variable names ¹​birds_obs_notes,
+#   ²​direction
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>birds_all <span class="ot">&lt;-</span> birds_subset <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(surveys) <span class="sc">|&gt;</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sites) <span class="sc">|&gt;</span> </span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(taxalist) <span class="sc">|&gt;</span> </span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(survey_date, common_name, park_name, bird_count) <span class="sc">|&gt;</span> </span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">survey_month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(survey_date)) <span class="sc">|&gt;</span> </span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">survey_month =</span> <span class="fu">as.factor</span>(survey_month))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = c("survey_id", "site_id")
+Joining, by = "site_id"
+Joining, by = "species_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>birds_all</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,425 × 5
+   survey_date         common_name           park_name bird_count survey_month
+   &lt;dttm&gt;              &lt;chr&gt;                 &lt;chr&gt;          &lt;dbl&gt; &lt;fct&gt;       
+ 1 2000-12-21 00:00:00 House Sparrow         Lindo              4 12          
+ 2 2000-12-21 00:00:00 House Sparrow         Lindo             10 12          
+ 3 2000-12-21 00:00:00 Audubon's Warbler     Lindo              2 12          
+ 4 2000-12-21 00:00:00 Rock Dove             Lindo              2 12          
+ 5 2000-12-21 00:00:00 Great-tailed Grackle  Lindo              2 12          
+ 6 2000-12-21 00:00:00 White-crowned Sparrow Lindo              3 12          
+ 7 2000-12-21 00:00:00 White-crowned Sparrow Lindo              3 12          
+ 8 2000-12-21 00:00:00 Great-tailed Grackle  Lindo              2 12          
+ 9 2000-12-21 00:00:00 Rock Dove             Lindo              2 12          
+10 2000-12-21 00:00:00 Mourning Dove         Lindo              3 12          
+# … with 40,415 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>birds_count <span class="ot">&lt;-</span> birds_all <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(survey_month, <span class="at">.after =</span> survey_date) <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(park_name, survey_month) <span class="sc">|&gt;</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mistake use summarize</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mutate(total_birds = sum(bird_count, na.rm = TRUE) ) |&gt; </span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_birds =</span> <span class="fu">sum</span>(bird_count, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) ) <span class="sc">|&gt;</span>   <span class="co"># filter((park_name == "Lindo" &amp; park_name == "Orme" &amp; park_name == "Palomino" &amp; parke_name == "Sonrisa"), na.rm == TRUE)</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(park_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">'Lindo'</span>,<span class="st">"Orme"</span>,<span class="st">"Palomino"</span>,<span class="st">"Sonrisa"</span>), <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'park_name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">unique</span>(birds_count<span class="sc">$</span>park_name)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Lindo"    "Orme"     "Palomino" "Sonrisa" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(birds_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "park_name"    "survey_month" "total_birds" </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>birds_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 3
+# Groups:   park_name [4]
+   park_name survey_month total_birds
+   &lt;chr&gt;     &lt;fct&gt;              &lt;dbl&gt;
+ 1 Lindo     1                    394
+ 2 Lindo     3                   2316
+ 3 Lindo     6                   2187
+ 4 Lindo     9                   4688
+ 5 Lindo     10                   529
+ 6 Lindo     12                  1948
+ 7 Orme      1                    439
+ 8 Orme      3                   1928
+ 9 Orme      6                   2355
+10 Orme      9                   1304
+# … with 13 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="do">######################################################################</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>birds_df <span class="ot">&lt;-</span> bird_observations <span class="sc">%&gt;%</span> </span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>notes) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(surveys) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(sites) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(taxalist) <span class="sc">%&gt;%</span> </span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(survey_date, park_name, common_name, bird_count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining, by = c("survey_id", "site_id")
+Joining, by = "site_id"
+Joining, by = "species_id"</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>birds_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,425 × 4
+   survey_date         park_name common_name           bird_count
+   &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;
+ 1 2000-12-21 00:00:00 Lindo     House Sparrow                  4
+ 2 2000-12-21 00:00:00 Lindo     House Sparrow                 10
+ 3 2000-12-21 00:00:00 Lindo     Audubon's Warbler              2
+ 4 2000-12-21 00:00:00 Lindo     Rock Dove                      2
+ 5 2000-12-21 00:00:00 Lindo     Great-tailed Grackle           2
+ 6 2000-12-21 00:00:00 Lindo     White-crowned Sparrow          3
+ 7 2000-12-21 00:00:00 Lindo     White-crowned Sparrow          3
+ 8 2000-12-21 00:00:00 Lindo     Great-tailed Grackle           2
+ 9 2000-12-21 00:00:00 Lindo     Rock Dove                      2
+10 2000-12-21 00:00:00 Lindo     Mourning Dove                  3
+# … with 40,415 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>birds_df <span class="ot">&lt;-</span> birds_df <span class="sc">%&gt;%</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">survey_month =</span> lubridate<span class="sc">::</span><span class="fu">month</span>(survey_date)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">survey_month =</span> <span class="fu">as.factor</span>(survey_month)) <span class="sc">%&gt;%</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(survey_month, <span class="at">.after =</span> survey_date)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>birds_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 40,425 × 5
+   survey_date         survey_month park_name common_name           bird_count
+   &lt;dttm&gt;              &lt;fct&gt;        &lt;chr&gt;     &lt;chr&gt;                      &lt;dbl&gt;
+ 1 2000-12-21 00:00:00 12           Lindo     House Sparrow                  4
+ 2 2000-12-21 00:00:00 12           Lindo     House Sparrow                 10
+ 3 2000-12-21 00:00:00 12           Lindo     Audubon's Warbler              2
+ 4 2000-12-21 00:00:00 12           Lindo     Rock Dove                      2
+ 5 2000-12-21 00:00:00 12           Lindo     Great-tailed Grackle           2
+ 6 2000-12-21 00:00:00 12           Lindo     White-crowned Sparrow          3
+ 7 2000-12-21 00:00:00 12           Lindo     White-crowned Sparrow          3
+ 8 2000-12-21 00:00:00 12           Lindo     Great-tailed Grackle           2
+ 9 2000-12-21 00:00:00 12           Lindo     Rock Dove                      2
+10 2000-12-21 00:00:00 12           Lindo     Mourning Dove                  3
+# … with 40,415 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>birds_park_month <span class="ot">&lt;-</span> birds_df <span class="sc">%&gt;%</span> </span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(park_name, survey_month) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_birds =</span> <span class="fu">sum</span>(bird_count, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(park_name <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Lindo"</span>, <span class="st">"Orme"</span>, <span class="st">"Palomino"</span>, <span class="st">"Sonrisa"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'park_name'. You can override using the
+`.groups` argument.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>birds_park_month</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 3
+   park_name survey_month total_birds
+   &lt;chr&gt;     &lt;fct&gt;              &lt;dbl&gt;
+ 1 Lindo     1                    394
+ 2 Lindo     3                   2316
+ 3 Lindo     6                   2187
+ 4 Lindo     9                   4688
+ 5 Lindo     10                   529
+ 6 Lindo     12                  1948
+ 7 Orme      1                    439
+ 8 Orme      3                   1928
+ 9 Orme      6                   2355
+10 Orme      9                   1304
+# … with 13 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>birds_count</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 23 × 3
+# Groups:   park_name [4]
+   park_name survey_month total_birds
+   &lt;chr&gt;     &lt;fct&gt;              &lt;dbl&gt;
+ 1 Lindo     1                    394
+ 2 Lindo     3                   2316
+ 3 Lindo     6                   2187
+ 4 Lindo     9                   4688
+ 5 Lindo     10                   529
+ 6 Lindo     12                  1948
+ 7 Orme      1                    439
+ 8 Orme      3                   1928
+ 9 Orme      6                   2355
+10 Orme      9                   1304
+# … with 13 more rows
+# ℹ Use `print(n = ...)` to see more rows</code></pre>
+</div>
+</div>
+<p>Learn a new function on your own! Use dplyr::relocate() to move the new survey_month column to immediately after the survey_date column. You can do this in a separate code chunk, or pipe straight into it from your existing code.</p>
+<p>Find the total number of birds observed by park and month (i.e., you’ll group_by(park_name, survey_month))</p>
+<p>Filter to only include parks “Lindo”, “Orme”, “Palomino” and “Sonrisa”</p>
+<div class="cell">
+
+</div>
+</section>
+<section id="practice-with-strings" class="level1">
+<h1>Practice with strings</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>alarm_report <span class="ot">&lt;-</span> tibble<span class="sc">::</span><span class="fu">tribble</span>(</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>         <span class="sc">~</span>date,           <span class="sc">~</span>building,                                              <span class="sc">~</span>alarm_message,</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2020-03-14"</span>, <span class="st">"Engineering-North"</span>, <span class="st">"10:02am – HVAC system down, facilities management alerted"</span>,</span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2020-03-15"</span>,         <span class="st">"Bren Hall"</span>,                    <span class="st">"8:24am – Elevator North out of service"</span>,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2020-04-10"</span>, <span class="st">"Engineering-South"</span>,     <span class="st">"12:41am – Fire alarm, UCSB fire responded and cleared"</span>,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"2020-04-18"</span>,        <span class="st">"Engr-North"</span>,     <span class="st">"9:58pm – Campus point emergency siren, UCPD responded"</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li>Create a subset of <code>bird_observations</code> called <code>birds_subset</code> that only contains observations for birds with species id "BHCO" and "RWBL", and from sites with site ID "LI-W" and "NU-C"</li>
+<li><p>Practice working with strings by writing code to update <code>alarm_report</code> as follows (these can be separate, or all as part of a piped sequence):</p>
+<ul>
+<li><p>Replace the "Engr" with "Engineering" in the <code>building</code> column</p></li>
+<li><p>Separate the <code>building</code> column into two separate columns, <code>building</code> and <code>wing</code>, separated at the dash</p></li>
+<li><p>Only keep observations with the word "responded" in the <code>alarm_message</code> column</p></li>
+<li><p>Separate the message <em>time</em> from the rest of the message by separating at <code>--</code></p></li>
+<li><p>Convert the date column to a Date class using <code>lubridate</code></p></li>
+</ul></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>alarm_report2 <span class="ot">&lt;-</span> alarm_report <span class="sc">|&gt;</span> </span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">building =</span> <span class="fu">str_replace</span>(building,</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>                                <span class="at">pattern =</span> <span class="st">"Engr"</span>,</span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>                                <span class="at">replacement =</span> <span class="st">"Engineering"</span>)) <span class="sc">|&gt;</span> <span class="fu">separate</span>(building, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"building"</span>, <span class="st">"wing"</span>), <span class="at">sep =</span> <span class="st">"-"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(alarm_message, <span class="at">pattern =</span> <span class="st">"responded"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">separate</span>(<span class="at">col =</span> alarm_message, <span class="at">into =</span> <span class="fu">c</span>(<span class="st">"time"</span>,<span class="st">"alarm_message"</span>), <span class="at">sep =</span> <span class="st">"–"</span>  ) <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">date =</span> lubridate<span class="sc">::</span><span class="fu">ymd</span>(date))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Expected 2 pieces. Missing pieces filled with `NA` in 1 rows [2].</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># mutate(date = lubridate::as_date(date))</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>alarm_report2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 5
+  date       building    wing  time       alarm_message                         
+  &lt;date&gt;     &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;                                 
+1 2020-04-10 Engineering South "12:41am " " Fire alarm, UCSB fire responded and…
+2 2020-04-18 Engineering North "9:58pm "  " Campus point emergency siren, UCPD …</code></pre>
+</div>
+</div>
+</section>
 
 </main>
 <!-- /main column -->
